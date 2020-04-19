@@ -22,6 +22,7 @@
 		65B677B2244437D400F29420 /* Animation+Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B1244437D400F29420 /* Animation+Ripple.swift */; };
 		65B677B424445C8F00F29420 /* UIColor+Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B324445C8F00F29420 /* UIColor+Light.swift */; };
 		65B677B6244465F700F29420 /* UIImage+FromColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B5244465F700F29420 /* UIImage+FromColor.swift */; };
+		65CD2CB4244C0DEA00250098 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CD2CB3244C0DEA00250098 /* GradientView.swift */; };
 		65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6A26224466F530065560C /* UIImage+Gradient.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		65B677B1244437D400F29420 /* Animation+Ripple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Animation+Ripple.swift"; sourceTree = "<group>"; };
 		65B677B324445C8F00F29420 /* UIColor+Light.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Light.swift"; sourceTree = "<group>"; };
 		65B677B5244465F700F29420 /* UIImage+FromColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+FromColor.swift"; sourceTree = "<group>"; };
+		65CD2CB3244C0DEA00250098 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		65F6A26224466F530065560C /* UIImage+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gradient.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,7 @@
 				65B6777F244407F700F29420 /* SceneDelegate.swift */,
 				658E8D1F24458F9B00291A5E /* CustomPhotoAlbum.swift */,
 				65B67781244407F700F29420 /* ContentView.swift */,
+				65CD2CB3244C0DEA00250098 /* GradientView.swift */,
 				65B677B324445C8F00F29420 /* UIColor+Light.swift */,
 				65B677B5244465F700F29420 /* UIImage+FromColor.swift */,
 				65F6A26224466F530065560C /* UIImage+Gradient.swift */,
@@ -293,6 +296,7 @@
 			files = (
 				65B677AE24440A7500F29420 /* ColorPickerView.swift in Sources */,
 				65B677B6244465F700F29420 /* UIImage+FromColor.swift in Sources */,
+				65CD2CB4244C0DEA00250098 /* GradientView.swift in Sources */,
 				65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */,
 				65B6777E244407F700F29420 /* AppDelegate.swift in Sources */,
 				65B677B024441D6100F29420 /* View+Layout.swift in Sources */,
