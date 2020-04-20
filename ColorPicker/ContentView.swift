@@ -57,11 +57,10 @@ struct ContentView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition).zIndex(999)
-            
+            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition)
+            // background hack to make ColorPickerView have gesture preference over GradientView
             ColorPickerView(chosenColor: $currentColor, isDragging: $isDragging)
-                .frame(width: 50, height: 200).padding([.top], 80).zIndex(1001)
-            
+                .frame(width: 50, height: 200).padding([.top], 80).background(Color.white.opacity(0.0001))
             
             VStack(alignment: .leading) {
                 if backgroundSaved {
@@ -73,20 +72,17 @@ struct ContentView: View {
                         }
                     })
                 }
-                ZStack(alignment: .bottomTrailing) {
-                    if !isDragging {
-                        VStack(alignment: .trailing) {
-                            Spacer().frame(maxWidth: .infinity)
-                            ColorsView(pickedColors: $pickedColors)
-                            ActionsView(shuffleAction: shuffleAction, addColor: addColor, saveBackground: saveBackground)
-                            }
-                            .transition(.move(edge: .trailing))
-                            .animation(.ripple())
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 30))
-                            
-                        }
+                if !isDragging {
+                    VStack(alignment: .trailing) {
+                        Spacer().frame(maxWidth: .infinity)
+                        ColorsView(pickedColors: $pickedColors)
+                        ActionsView(shuffleAction: shuffleAction, addColor: addColor, saveBackground: saveBackground)
+                    }
+                    .transition(.move(edge: .trailing))
+                    .animation(.ripple())
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 30))
                 }
-            }.zIndex(1000)
+            }
         }
         .edgesIgnoringSafeArea(.all)
     }

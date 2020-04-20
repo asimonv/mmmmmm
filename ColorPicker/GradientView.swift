@@ -36,7 +36,6 @@ struct GradientView: View {
                 .gesture(RotationGesture().onChanged({ value in
                     self.rotationValue = value;
                 })).simultaneousGesture(DragGesture().onChanged({ value in
-                    print("x: \(value.location.x), y: \(value.location.y)")
                     self.centerPosition = UnitPoint(x: value.location.x / self.maxX , y: value.location.y / self.maxY)
                 })))
         case 2:
