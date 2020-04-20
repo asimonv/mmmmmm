@@ -10,19 +10,15 @@ import SwiftUI
 
 struct ColorsView: View {
     @Binding var pickedColors: [UIColor]
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            ForEach(pickedColors, id: \.self) { color in
-                ColorView(color: Color(color))
+            ForEach(pickedColors.indices, id: \.self) { idx in
+                ColorView(color: Color(self.pickedColors[idx]))
                 .frame(width: 30, height: 30)
                 .padding(.all)
-                    .onTapGesture {
-                        if self.pickedColors.count > 1 {
-                            self.pickedColors.removeAll(where: { value in
-                                color == value
-                            })
-                        }
-                        
+                .onTapGesture {
+                    self.pickedColors.remove(at: idx)
                 }
             }
         }
@@ -31,6 +27,6 @@ struct ColorsView: View {
 
 struct ColorsView_Previews: PreviewProvider {
     static var previews: some View {
-        ColorsView(pickedColors: Binding.constant([.purple, .red, .cyan]))
+        ColorsView(pickedColors: Binding.constant([]))
     }
 }

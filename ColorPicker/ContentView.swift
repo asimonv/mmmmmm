@@ -21,31 +21,37 @@ struct ContentView: View {
     
     @State var notificationText: String = "Background saved."
     
-    @State var pickedColors: [UIColor] = [
-        .purple, .red, .cyan
-    ]
+    @State var pickedColors: [UIColor] = []
     
     func shuffleAction() -> Void {
-        self.gradientType = (self.gradientType + 1) % 3
+        self.gradientType = (self.gradientType + 1) % 4
     }
     
     func addColor() -> Void {
         pickedColors.insert(currentColor, at: 0)
     }
     
+    func clearAction() -> Void {
+        self.pickedColors = []
+        self.gradientType = 0
+    }
+    
     /*
-        0: Linear
-        1: Angular
-        2: Radial
+        0: Single
+        1: Linear
+        2: Angular
+        3: Radial
      */
     func saveBackground() -> Void {
         var image: UIImage!
         switch gradientType {
         case 0:
-            image = LinearGradientView(pickedColors: $pickedColors).asImage()
+            image = UIImage(color: UIColor.blend(colors: pickedColors), size: UIScreen.main.bounds.size)!
         case 1:
-            image = AngularGradientView(pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition).asImage()
+            image = LinearGradientView(pickedColors: $pickedColors).asImage()
         case 2:
+            image = AngularGradientView(pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition).asImage()
+        case 3:
             image = RadialGradientView(pickedColors: $pickedColors, scale: $radialScale).asImage()
         default:
             image = UIImage(color: currentColor, size: UIScreen.main.bounds.size)!
@@ -60,8 +66,6 @@ struct ContentView: View {
             // save successful, do something (such as inform user)
             self.backgroundSaved = !self.backgroundSaved
         })
-        // self.backgroundSaved = !self.backgroundSaved
-
     }
     
     var body: some View {
@@ -75,8 +79,10 @@ struct ContentView: View {
                 if !isDragging {
                     VStack(alignment: .trailing) {
                         Spacer().frame(maxWidth: .infinity)
-                        ColorsView(pickedColors: $pickedColors)
-                        ActionsView(shuffleAction: shuffleAction, addColor: addColor, saveBackground: saveBackground)
+                        if pickedColors.count > 0 {
+                            ColorsView(pickedColors: $pickedColors)
+                        }
+                        ActionsView(pickedColors: $pickedColors, shuffleAction: shuffleAction, addColor: addColor, saveBackground: saveBackground, clearAction: clearAction)
                     }
                     .transition(.move(edge: .trailing))
                     .animation(.ripple())

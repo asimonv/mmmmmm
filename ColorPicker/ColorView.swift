@@ -17,6 +17,7 @@ struct ColorView: View {
               Circle()
              .stroke(Color.white,lineWidth: 3)
             ).foregroundColor(color)
+        .shadow(radius: 5)
     }
 }
 

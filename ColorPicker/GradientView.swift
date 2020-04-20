@@ -18,10 +18,12 @@ struct GradientView: View {
     var body: some View {
         switch(gradientType) {
         case 0:
-            return AnyView(LinearGradientView(pickedColors: $pickedColors))
+            return AnyView(Color(UIColor.blend(colors: pickedColors)))
         case 1:
-            return AnyView(AngularGradientView(pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition))
+            return AnyView(LinearGradientView(pickedColors: $pickedColors))
         case 2:
+            return AnyView(AngularGradientView(pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition))
+        case 3:
             return AnyView(RadialGradientView(pickedColors: $pickedColors, scale: $radialScale))
         default:
             return AnyView(Rectangle())
