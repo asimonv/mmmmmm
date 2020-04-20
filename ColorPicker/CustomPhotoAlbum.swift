@@ -10,81 +10,91 @@ import Foundation
 import Photos
 import UIKit
 
+
 class CustomPhotoAlbum: NSObject {
     static let albumName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
-    static let sharedInstance = CustomPhotoAlbum()
+    static let shared = CustomPhotoAlbum()
 
-    var assetCollection: PHAssetCollection!
+    private var assetCollection: PHAssetCollection!
 
-    override init() {
+    private override init() {
         super.init()
 
         if let assetCollection = fetchAssetCollectionForAlbum() {
-            self.assetCollection = assetCollection
-            return
-        }
-
-        if PHPhotoLibrary.authorizationStatus() != PHAuthorizationStatus.authorized {
-            PHPhotoLibrary.requestAuthorization({ (status: PHAuthorizationStatus) -> Void in
-                ()
-            })
-        }
-
-        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
-            self.createAlbum()
-        } else {
-            PHPhotoLibrary.requestAuthorization(requestAuthorizationHandler)
+          self.assetCollection = assetCollection
+          return
         }
     }
 
-    func requestAuthorizationHandler(status: PHAuthorizationStatus) {
-        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
-            // ideally this ensures the creation of the photo album even if authorization wasn't prompted till after init was done
-            print("trying again to create the album")
-            self.createAlbum()
-        } else {
-            print("should really prompt the user to let them know it's failed")
+    private func checkAuthorizationWithHandler(completion: @escaping ((_ success: Bool, _ error: AlbumError?) -> Void)) {
+        if PHPhotoLibrary.authorizationStatus() == .notDetermined {
+          PHPhotoLibrary.requestAuthorization({ (status) in
+            self.checkAuthorizationWithHandler(completion: completion)
+          })
         }
-    }
-
-    func createAlbum() {
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: CustomPhotoAlbum.albumName)   // create an asset collection with the album name
-        }) { success, error in
+        else if PHPhotoLibrary.authorizationStatus() == .authorized {
+          self.createAlbumIfNeeded { (success, error) in
             if success {
-                self.assetCollection = self.fetchAssetCollectionForAlbum()
+                completion(true, nil)
             } else {
-                print("error \(String(describing: error))")
+                completion(false, AlbumError.albumError)
             }
+
+          }
+        }
+        else {
+            completion(false, AlbumError.albumError)
         }
     }
 
-    func fetchAssetCollectionForAlbum() -> PHAssetCollection? {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "title = %@", CustomPhotoAlbum.albumName)
-        let collection = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
-
-        if let _: AnyObject = collection.firstObject {
-            return collection.firstObject
+    private func createAlbumIfNeeded(completion: @escaping ((_ success: Bool, _ error: AlbumError?) -> Void)) {
+    if let assetCollection = fetchAssetCollectionForAlbum() {
+      // Album already exists
+      self.assetCollection = assetCollection
+        completion(true, nil)
+    } else {
+      PHPhotoLibrary.shared().performChanges({
+        PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: CustomPhotoAlbum.albumName)   // create an asset collection with the album name
+      }) { success, error in
+        if success {
+          self.assetCollection = self.fetchAssetCollectionForAlbum()
+            completion(true, nil)
+        } else {
+          // Unable to create album
+            completion(false, AlbumError.albumError)
         }
-        return nil
+      }
     }
+  }
 
-    func save(_ image: UIImage, completion: @escaping ((Bool, Error?) -> ())) {
-        if assetCollection == nil {
-            // if there was an error upstream, skip the save
-            return
-        }
+  private func fetchAssetCollectionForAlbum() -> PHAssetCollection? {
+    let fetchOptions = PHFetchOptions()
+    fetchOptions.predicate = NSPredicate(format: "title = %@", CustomPhotoAlbum.albumName)
+    let collection = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
 
+    if let _: AnyObject = collection.firstObject {
+      return collection.firstObject
+    }
+    return nil
+  }
+    
+  func save(_ image: UIImage, completion: @escaping ((Bool, AlbumError?) -> ())) {
+    self.checkAuthorizationWithHandler { (success, error) in
+      if success, self.assetCollection != nil {
         PHPhotoLibrary.shared().performChanges({
-            let assetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
-            let assetPlaceHolder = assetChangeRequest.placeholderForCreatedAsset
-            let albumChangeRequest = PHAssetCollectionChangeRequest(for: self.assetCollection)
+          let assetChangeRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+          let assetPlaceHolder = assetChangeRequest.placeholderForCreatedAsset
+          if let albumChangeRequest = PHAssetCollectionChangeRequest(for: self.assetCollection) {
             let enumeration: NSArray = [assetPlaceHolder!]
-            albumChangeRequest!.addAssets(enumeration)
-
-        }, completionHandler: { result, error in
-            completion(result, error)
+            albumChangeRequest.addAssets(enumeration)
+          }
+        }, completionHandler: { (success, error) in
+            completion(success, AlbumError.albumError)
         })
+      } else{
+            completion(success, error)
+        }
     }
+  }
+    
 }

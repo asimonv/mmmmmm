@@ -38,6 +38,7 @@ struct ColorPickerView: View {
     }
     
     private var linearGradientHeight: CGFloat = 200
+    private var threshold: CGFloat = 20
     
     /// Get the current color based on our current translation within the view
     private var currentColor: Color {
@@ -60,11 +61,11 @@ struct ColorPickerView: View {
     
     // todo: update last start location when user moves > -10 to the right
     func getNewLocation(translation: DragGesture.Value) -> CGPoint {
-        if translation.translation.width < -10.0 && !self.saturationMode{
+        if translation.translation.width < -threshold && !self.saturationMode{
             self.saturationMode = true
             self.lastLocation = CGPoint(x: startLocation.x, y: startLocation.y + translation.translation.height)
         } else if saturationMode {
-            if translation.translation.width >= -10.0 {
+            if translation.translation.width >= -threshold {
                 self.saturationMode = false
                     self.lastLocation = CGPoint(x: startLocation.x, y: startLocation.y + translation.translation.height)
                 

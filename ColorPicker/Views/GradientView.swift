@@ -18,7 +18,7 @@ struct GradientView: View {
     var body: some View {
         switch(gradientType) {
         case 0:
-            return AnyView(Color(UIColor.blend(colors: pickedColors)))
+            return AnyView(Color(pickedColors.count > 0 ? UIColor.blend(colors: pickedColors) : .white))
         case 1:
             return AnyView(LinearGradientView(pickedColors: $pickedColors))
         case 2:

@@ -15,6 +15,9 @@ struct ContentView: View {
     
     @State var gradientType = 0
     
+    @State var showAlert: Bool = false
+    @State var alertMessage: String = ""
+    
     @State var centerPosition: UnitPoint = .center
     @State var rotationValue: Angle = .zero
     @State var radialScale: CGFloat = 1.0
@@ -57,10 +60,11 @@ struct ContentView: View {
             image = UIImage(color: currentColor, size: UIScreen.main.bounds.size)!
         }
                 
-        CustomPhotoAlbum.sharedInstance.save(image, completion: { result, error in
+        CustomPhotoAlbum.shared.save(image, completion: { result, error in
             if error != nil {
                 // handle error
-                print(error!)
+                self.showAlert = true
+                self.alertMessage = error!.errorDescription!
                 return
             }
             // save successful, do something (such as inform user)
@@ -100,6 +104,10 @@ struct ContentView: View {
             }
         }
         .edgesIgnoringSafeArea(.all)
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+
+        }
     }
 }
 
