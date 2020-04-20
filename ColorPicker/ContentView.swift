@@ -7,38 +7,6 @@
 //
 
 import SwiftUI
-    
-    extension View {
-        func asImage() -> UIImage {
-            let controller = UIHostingController(rootView: self)
-
-            // locate far out of screen
-            controller.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
-            UIApplication.shared.windows.first!.rootViewController?.view.addSubview(controller.view)
-
-            let size = controller.sizeThatFits(in: UIScreen.main.bounds.size)
-            controller.view.bounds = CGRect(origin: .zero, size: size)
-            controller.view.sizeToFit()
-
-            let image = controller.view.asImage()
-            controller.view.removeFromSuperview()
-            return image
-        }
-    }
-
-    extension UIView {
-        func asImage() -> UIImage {
-            let renderer = UIGraphicsImageRenderer(bounds: bounds)
-            return renderer.image { rendererContext in
-    // [!!] Uncomment to clip resulting image
-    //             rendererContext.cgContext.addPath(
-    //                UIBezierPath(roundedRect: bounds, cornerRadius: 20).cgPath)
-    //            rendererContext.cgContext.clip()
-                layer.render(in: rendererContext.cgContext)
-            }
-        }
-    }
-
 
 struct ContentView: View {
     @State var currentColor: UIColor = .red
@@ -53,6 +21,15 @@ struct ContentView: View {
     @State var pickedColors: [UIColor] = [
         .purple, .red, .cyan
     ]
+    
+    func shuffleAction() -> Void {
+        self.gradientType = (self.gradientType + 1) % 3
+    }
+    
+    func addColor() -> Void {
+        pickedColors.insert(currentColor, at: 0)
+    }
+    
     
     func saveBackground() -> Void {
         var image: UIImage!
@@ -78,97 +55,42 @@ struct ContentView: View {
         })
     }
     
-    func addColor() -> Void {
-        pickedColors.insert(currentColor, at: 0)
-    }
-    
     var body: some View {
         ZStack(alignment: .topLeading) {
-            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition)
+            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition).zIndex(999)
+            
+            ColorPickerView(chosenColor: $currentColor, isDragging: $isDragging)
+                .frame(width: 50, height: 200).padding([.top], 80).zIndex(1001)
+            
             
             VStack(alignment: .leading) {
-                ColorPickerView(chosenColor: $currentColor, isDragging: $isDragging)
-                .frame(width: 50, height: 200).padding([.top], 80)
-                
                 if backgroundSaved {
-                    HStack {
-                        Rectangle().fill(Color(currentColor))
-                        .cornerRadius(10)
-                        .frame(width: 40, height: 40)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2.0)
-                        )
-                        Text("Saved!").bold().foregroundColor(Color.white)
-                    }
-                    .padding(20)
-                    .transition(.move(edge: .leading))
-                    .animation(.ripple())
-                    .onAppear(perform: {
+                    SavedView(currentColor: $currentColor, callback: {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             withAnimation {
                                 self.backgroundSaved = false
                             }
                         }
                     })
-                    
                 }
-                    ZStack(alignment: .bottomTrailing) {
-                        if !isDragging {
-                            VStack(alignment: .trailing) {
-                                Spacer().frame(maxWidth: .infinity)
-                                    ScrollView(.vertical, showsIndicators: false) {
-                                        ForEach(pickedColors, id: \.self) { color in
-                                            ColorView(color: Color(color))
-                                            .frame(width: 30, height: 30)
-                                            .padding(.all)
-                                                .onTapGesture {
-                                                    if self.pickedColors.count > 1 {
-                                                        self.pickedColors.removeAll(where: { value in
-                                                            color == value
-                                                        })
-                                                    }
-                                                    
-                                            }
-                                        }
-                                    }
-                                    HStack(alignment: .center) {
-                                        Button(action: { self.gradientType = (self.gradientType + 1) % 3 }) {
-                                            Image(systemName: "shuffle")
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                            .foregroundColor(Color.white.opacity(0.8))
-                                                .padding(.all)
-                                        }
-                                        
-                                        Button(action: addColor) {
-                                            Image(systemName: "plus.app.fill")
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                            .foregroundColor(Color.white.opacity(0.8))
-                                                .padding(.all)
-
-                                        }
-                                        
-                                        Button(action: saveBackground) {
-                                            Image(systemName: "square.and.arrow.down.fill")
-                                            .resizable()
-                                            .frame(width: 30, height: 30)
-                                            .foregroundColor(Color.white.opacity(0.8))
-                                                .padding(.all)
-                                        }
-                                    }
-                                }
-                                .transition(.move(edge: .trailing))
-                                .animation(.ripple())
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 30))
-                                
+                ZStack(alignment: .bottomTrailing) {
+                    if !isDragging {
+                        VStack(alignment: .trailing) {
+                            Spacer().frame(maxWidth: .infinity)
+                            ColorsView(pickedColors: $pickedColors)
+                            ActionsView(shuffleAction: shuffleAction, addColor: addColor, saveBackground: saveBackground)
                             }
-                    }
+                            .transition(.move(edge: .trailing))
+                            .animation(.ripple())
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 30))
+                            
+                        }
                 }
-            }
-            .edgesIgnoringSafeArea(.all)
+            }.zIndex(1000)
         }
+        .edgesIgnoringSafeArea(.all)
     }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
