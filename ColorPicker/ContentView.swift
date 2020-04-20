@@ -17,6 +17,9 @@ struct ContentView: View {
     
     @State var centerPosition: UnitPoint = .center
     @State var rotationValue: Angle = .zero
+    @State var radialScale: CGFloat = 1.0
+    
+    @State var notificationText: String = "Background saved."
     
     @State var pickedColors: [UIColor] = [
         .purple, .red, .cyan
@@ -30,17 +33,21 @@ struct ContentView: View {
         pickedColors.insert(currentColor, at: 0)
     }
     
-    
+    /*
+        0: Linear
+        1: Angular
+        2: Radial
+     */
     func saveBackground() -> Void {
         var image: UIImage!
-        if gradientType == 0 {
-            image = Rectangle()
-            .fill(
-                AngularGradient(gradient: Gradient(colors: pickedColors.map({ color in
-                    Color(color)
-                })), center: centerPosition, angle: self.rotationValue)
-                ).asImage().dithered(intensity: 3)
-        } else {
+        switch gradientType {
+        case 0:
+            image = LinearGradientView(pickedColors: $pickedColors).asImage()
+        case 1:
+            image = AngularGradientView(pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition).asImage()
+        case 2:
+            image = RadialGradientView(pickedColors: $pickedColors, scale: $radialScale).asImage()
+        default:
             image = UIImage(color: currentColor, size: UIScreen.main.bounds.size)!
         }
                 
@@ -53,25 +60,18 @@ struct ContentView: View {
             // save successful, do something (such as inform user)
             self.backgroundSaved = !self.backgroundSaved
         })
+        // self.backgroundSaved = !self.backgroundSaved
+
     }
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition)
+        ZStack(alignment: .topTrailing) {
+            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition, radialScale: $radialScale)
             // background hack to make ColorPickerView have gesture preference over GradientView
             ColorPickerView(chosenColor: $currentColor, isDragging: $isDragging)
-                .frame(width: 50, height: 200).padding([.top], 80).background(Color.white.opacity(0.0001))
+                .frame(width: 50, height: 200).padding([.top], 80).background(Color.white.opacity(0.0001)).padding([.trailing], 35)
             
             VStack(alignment: .leading) {
-                if backgroundSaved {
-                    SavedView(currentColor: $currentColor, callback: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            withAnimation {
-                                self.backgroundSaved = false
-                            }
-                        }
-                    })
-                }
                 if !isDragging {
                     VStack(alignment: .trailing) {
                         Spacer().frame(maxWidth: .infinity)
@@ -82,6 +82,15 @@ struct ContentView: View {
                     .animation(.ripple())
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 30))
                 }
+                if backgroundSaved {
+                    SavedView(currentColor: $currentColor, notificationText: $notificationText, callback: {
+                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                             withAnimation {
+                                 self.backgroundSaved = false
+                             }
+                         }
+                     }).padding(.all)
+                 }
             }
         }
         .edgesIgnoringSafeArea(.all)

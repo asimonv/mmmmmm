@@ -10,26 +10,23 @@ import SwiftUI
 
 struct SavedView: View {
     @Binding var currentColor: UIColor
+    @Binding var notificationText: String
+    
     var callback: () -> Void
+    
     var body: some View {
         HStack {
-            Rectangle().fill(Color(currentColor))
-            .cornerRadius(10)
-            .frame(width: 40, height: 40)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 2.0)
-            )
-            Text("Saved!").bold().foregroundColor(Color.white)
+            Text(notificationText).bold().foregroundColor(Color.white).font(.system(size: 20))
         }
         .padding(20)
         .transition(.move(edge: .leading))
-        .animation(.ripple())
+        .animation(.ripple(blendDuration: 0.0))
         .onAppear(perform: callback)
     }
 }
 
 struct SavedView_Previews: PreviewProvider {
     static var previews: some View {
-        SavedView(currentColor: Binding.constant(UIColor.black), callback: {})
+        SavedView(currentColor: Binding.constant(UIColor.black), notificationText: Binding.constant("Text"), callback: {})
     }
 }

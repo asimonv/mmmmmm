@@ -27,6 +27,9 @@
 		65C476CC244D608B008C5102 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CB244D608B008C5102 /* ActionsView.swift */; };
 		65C476CE244D6091008C5102 /* ColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CD244D6091008C5102 /* ColorsView.swift */; };
 		65C476D0244D64A8008C5102 /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CF244D64A8008C5102 /* SavedView.swift */; };
+		65C476D2244D7082008C5102 /* LinearGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476D1244D7082008C5102 /* LinearGradientView.swift */; };
+		65C476D4244D7296008C5102 /* AngularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476D3244D7296008C5102 /* AngularGradientView.swift */; };
+		65C476D6244D7367008C5102 /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476D5244D7367008C5102 /* RadialGradientView.swift */; };
 		65CD2CB4244C0DEA00250098 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CD2CB3244C0DEA00250098 /* GradientView.swift */; };
 		65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6A26224466F530065560C /* UIImage+Gradient.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +78,9 @@
 		65C476CB244D608B008C5102 /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		65C476CD244D6091008C5102 /* ColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsView.swift; sourceTree = "<group>"; };
 		65C476CF244D64A8008C5102 /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
+		65C476D1244D7082008C5102 /* LinearGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientView.swift; sourceTree = "<group>"; };
+		65C476D3244D7296008C5102 /* AngularGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngularGradientView.swift; sourceTree = "<group>"; };
+		65C476D5244D7367008C5102 /* RadialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
 		65CD2CB3244C0DEA00250098 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		65F6A26224466F530065560C /* UIImage+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gradient.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,7 +141,10 @@
 				65C476CD244D6091008C5102 /* ColorsView.swift */,
 				658E8D2124459AD900291A5E /* ColorView.swift */,
 				65B67781244407F700F29420 /* ContentView.swift */,
+				65C476D5244D7367008C5102 /* RadialGradientView.swift */,
 				658E8D1F24458F9B00291A5E /* CustomPhotoAlbum.swift */,
+				65C476D1244D7082008C5102 /* LinearGradientView.swift */,
+				65C476D3244D7296008C5102 /* AngularGradientView.swift */,
 				65CD2CB3244C0DEA00250098 /* GradientView.swift */,
 				65B6778B244407F800F29420 /* Info.plist */,
 				65B67788244407F800F29420 /* LaunchScreen.storyboard */,
@@ -314,13 +323,16 @@
 				65CD2CB4244C0DEA00250098 /* GradientView.swift in Sources */,
 				65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */,
 				65B6777E244407F700F29420 /* AppDelegate.swift in Sources */,
+				65C476D6244D7367008C5102 /* RadialGradientView.swift in Sources */,
 				65B677B024441D6100F29420 /* View+Layout.swift in Sources */,
 				658E8D2224459AD900291A5E /* ColorView.swift in Sources */,
 				65C476CA244D606B008C5102 /* MenuView.swift in Sources */,
 				65C476CE244D6091008C5102 /* ColorsView.swift in Sources */,
 				65B67780244407F700F29420 /* SceneDelegate.swift in Sources */,
 				65C476D0244D64A8008C5102 /* SavedView.swift in Sources */,
+				65C476D2244D7082008C5102 /* LinearGradientView.swift in Sources */,
 				65B677B2244437D400F29420 /* Animation+Ripple.swift in Sources */,
+				65C476D4244D7296008C5102 /* AngularGradientView.swift in Sources */,
 				65C476CC244D608B008C5102 /* ActionsView.swift in Sources */,
 				65C476C8244D5E7C008C5102 /* View+Image.swift in Sources */,
 				658E8D2024458F9B00291A5E /* CustomPhotoAlbum.swift in Sources */,

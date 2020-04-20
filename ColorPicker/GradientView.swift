@@ -13,38 +13,16 @@ struct GradientView: View {
     @Binding var pickedColors: [UIColor]
     @Binding var rotationValue: Angle
     @Binding var centerPosition: UnitPoint
-    
-    private let maxX = UIScreen.main.bounds.maxX
-    private let maxY = UIScreen.main.bounds.maxY
+    @Binding var radialScale: CGFloat
     
     var body: some View {
         switch(gradientType) {
         case 0:
-            return AnyView(Rectangle()
-            .fill(
-                LinearGradient(gradient: Gradient(colors: pickedColors.map({ color in
-                    Color(color)
-                })), startPoint: .top, endPoint: .bottom)
-            ))
+            return AnyView(LinearGradientView(pickedColors: $pickedColors))
         case 1:
-            return AnyView(Rectangle()
-            .fill(
-                AngularGradient(gradient: Gradient(colors: pickedColors.map({ color in
-                    Color(color)
-                })), center: centerPosition, angle: rotationValue)
-            )
-                .gesture(RotationGesture().onChanged({ value in
-                    self.rotationValue = value;
-                })).simultaneousGesture(DragGesture().onChanged({ value in
-                    self.centerPosition = UnitPoint(x: value.location.x / self.maxX , y: value.location.y / self.maxY)
-                })))
+            return AnyView(AngularGradientView(pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition))
         case 2:
-            return AnyView(Rectangle()
-                .fill(
-                    RadialGradient(gradient: Gradient(colors: pickedColors.map({ color in
-                        Color(color)
-                    })), center: .center, startRadius: 1, endRadius: 100)
-            ))
+            return AnyView(RadialGradientView(pickedColors: $pickedColors, scale: $radialScale))
         default:
             return AnyView(Rectangle())
         }
@@ -53,6 +31,6 @@ struct GradientView: View {
 
 struct GradientView_Previews: PreviewProvider {
     static var previews: some View {
-        GradientView(gradientType: Binding.constant(0), pickedColors: Binding.constant([UIColor.red]), rotationValue: Binding.constant(.zero), centerPosition: Binding.constant(.center))
+        GradientView(gradientType: Binding.constant(0), pickedColors: Binding.constant([UIColor.red]), rotationValue: Binding.constant(.zero), centerPosition: Binding.constant(.center), radialScale: Binding.constant(1.0))
     }
 }
