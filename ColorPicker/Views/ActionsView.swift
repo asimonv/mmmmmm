@@ -54,7 +54,8 @@ struct ActionsView: View {
                 .foregroundColor(Color.white.opacity(0.8))
                 .shadow(radius: 5)
                 .padding(.all)
-            }
+            }.disabled(pickedColors.count < 1)
+
         }
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		656E7B5F244E9195008A8E6B /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656E7B5E244E9195008A8E6B /* HostingController.swift */; };
+		656E7B61244E94F1008A8E6B /* Bundle+DisplayName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656E7B60244E94F1008A8E6B /* Bundle+DisplayName.swift */; };
 		658E8D2024458F9B00291A5E /* CustomPhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658E8D1F24458F9B00291A5E /* CustomPhotoAlbum.swift */; };
 		658E8D2224459AD900291A5E /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658E8D2124459AD900291A5E /* ColorView.swift */; };
 		65B246F1244E38560033EE81 /* UIColor+Blend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B246F0244E38560033EE81 /* UIColor+Blend.swift */; };
@@ -54,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		656E7B5E244E9195008A8E6B /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		656E7B60244E94F1008A8E6B /* Bundle+DisplayName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+DisplayName.swift"; sourceTree = "<group>"; };
 		658E8D1F24458F9B00291A5E /* CustomPhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoAlbum.swift; sourceTree = "<group>"; };
 		658E8D2124459AD900291A5E /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 		65B246F0244E38560033EE81 /* UIColor+Blend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Blend.swift"; sourceTree = "<group>"; };
@@ -137,6 +141,7 @@
 				65B677B1244437D400F29420 /* Animation+Ripple.swift */,
 				65B246F0244E38560033EE81 /* UIColor+Blend.swift */,
 				65B246F2244E5BB60033EE81 /* Error+SaveError.swift */,
+				656E7B60244E94F1008A8E6B /* Bundle+DisplayName.swift */,
 				65B677B324445C8F00F29420 /* UIColor+Light.swift */,
 				65B677B5244465F700F29420 /* UIImage+FromColor.swift */,
 				65F6A26224466F530065560C /* UIImage+Gradient.swift */,
@@ -179,6 +184,7 @@
 				65B67788244407F800F29420 /* LaunchScreen.storyboard */,
 				65B67785244407F800F29420 /* Preview Content */,
 				65B6777F244407F700F29420 /* SceneDelegate.swift */,
+				656E7B5E244E9195008A8E6B /* HostingController.swift */,
 			);
 			path = ColorPicker;
 			sourceTree = "<group>";
@@ -219,6 +225,7 @@
 				65B67776244407F700F29420 /* Sources */,
 				65B67777244407F700F29420 /* Frameworks */,
 				65B67778244407F700F29420 /* Resources */,
+				65AB2166244EA80200D79AFC /* Increment Build Number */,
 			);
 			buildRules = (
 			);
@@ -335,17 +342,40 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		65AB2166244EA80200D79AFC /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		65B67776244407F700F29420 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656E7B5F244E9195008A8E6B /* HostingController.swift in Sources */,
 				65B677AE24440A7500F29420 /* ColorPickerView.swift in Sources */,
 				65B677B6244465F700F29420 /* UIImage+FromColor.swift in Sources */,
 				65CD2CB4244C0DEA00250098 /* GradientView.swift in Sources */,
 				65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */,
 				65B6777E244407F700F29420 /* AppDelegate.swift in Sources */,
 				65C476D6244D7367008C5102 /* RadialGradientView.swift in Sources */,
+				656E7B61244E94F1008A8E6B /* Bundle+DisplayName.swift in Sources */,
 				65B677B024441D6100F29420 /* View+Layout.swift in Sources */,
 				658E8D2224459AD900291A5E /* ColorView.swift in Sources */,
 				65B246F3244E5BB60033EE81 /* Error+SaveError.swift in Sources */,
@@ -531,14 +561,15 @@
 				DEVELOPMENT_TEAM = ZRWC7JFC38;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ColorPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andre.ColorPicker.ColorPicker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.mmmmmm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -551,14 +582,15 @@
 				DEVELOPMENT_TEAM = ZRWC7JFC38;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ColorPicker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.andre.ColorPicker.ColorPicker;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andre.mmmmmm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

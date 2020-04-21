@@ -94,7 +94,7 @@ struct ContentView: View {
                 }
                 if backgroundSaved {
                     SavedView(currentColor: $currentColor, notificationText: $notificationText, callback: {
-                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                              withAnimation {
                                  self.backgroundSaved = false
                              }
@@ -105,7 +105,7 @@ struct ContentView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("Error"), message: Text(alertMessage), primaryButton: .cancel(Text("Cancel")), secondaryButton: Alert.Button.default(Text("Settings")) {
+            Alert(title: Text("Oops!"), message: Text(alertMessage), primaryButton: .cancel(Text("Cancel")), secondaryButton: Alert.Button.default(Text("Settings")) {
                     UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             })
 

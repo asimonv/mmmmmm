@@ -22,7 +22,7 @@ extension AlbumError: LocalizedError {
         case .imageError:
             return NSLocalizedString("Couldn't save image", comment: "Invalid permissions")
         case .permissionError:
-            return NSLocalizedString("This app is not authorized to save background image", comment: "Invalid permissions")
+            return NSLocalizedString("You haven't authorized \(Bundle.main.displayName!) to save images yet.", comment: "Invalid permissions")
             
         }
     }

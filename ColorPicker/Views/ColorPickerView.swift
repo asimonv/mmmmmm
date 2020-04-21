@@ -9,10 +9,17 @@
 import SwiftUI
 
 struct ColorPickerView: View {
+    private var circleWidth: CGFloat {
+        isDragging ? 35 : 25
+    }
+    
+    private var linearGradientHeight: CGFloat = 200
+    private var threshold: CGFloat = 40
+    
     @Binding var chosenColor: UIColor
     @Binding var isDragging: Bool
 
-    @State private var startLocation: CGPoint = .zero
+    @State private var startLocation: CGPoint = CGPoint(x: 0, y: 100)
     @State private var lastLocation: CGPoint = .zero
     @State private var dragOffset: CGSize = .zero
     @State var saturationMode: Bool = false
@@ -32,17 +39,9 @@ struct ColorPickerView: View {
         }
     }()
     
-    // 2
-    private var circleWidth: CGFloat {
-        isDragging ? 35 : 15
-    }
-    
-    private var linearGradientHeight: CGFloat = 200
-    private var threshold: CGFloat = 20
-    
     /// Get the current color based on our current translation within the view
     private var currentColor: Color {
-        Color(UIColor.init(hue: self.normalizeGesture().y / self.linearGradientHeight, saturation: self.saturationMode ? 1.0 - self.normalizeGesture(saturation: true).y / self.linearGradientHeight : 1.0, brightness: 1.0 - abs(self.normalizeGesture().x) / 320, alpha: 1.0))
+        Color(UIColor.init(hue: self.normalizeGesture().y / self.linearGradientHeight, saturation: self.saturationMode ? max(0, 1.0 - (self.normalizeGesture(saturation: true).y - self.lastLocation.y) / self.linearGradientHeight) : 1.0, brightness: 1.0 - abs(self.normalizeGesture().x) / linearGradientHeight, alpha: 1.0))
     }
     
     /// Normalize our gesture to be between 0 and 200, where 200 is the height.
@@ -50,16 +49,15 @@ struct ColorPickerView: View {
     private func normalizeGesture(saturation: Bool = false) -> (x: CGFloat, y: CGFloat) {
         let offsetY = (self.saturationMode ? lastLocation.y : startLocation.y) + dragOffset.height // Using our starting point, see how far we've dragged +- from there
         let maxY = max(0, offsetY) // We want to always be greater than 0, even if their finger goes outside our view
-        let minY = min(maxY, linearGradientHeight) // We want to always max at 200 even if the finger is outside the view.
+        let minY = min(maxY, saturation ? linearGradientHeight + self.lastLocation.y : linearGradientHeight) // We want to always max at 200 even if the finger is outside the view.
         
         let offsetX = startLocation.x + dragOffset.width
-        let maxX = max(-320, offsetX)
+        let maxX = max(-linearGradientHeight, offsetX)
         let minX = min(maxX, 0)
-        
+
         return (minX, self.saturationMode ? (saturation ? minY : self.lastLocation.y) : minY)
     }
     
-    // todo: update last start location when user moves > -10 to the right
     func getNewLocation(translation: DragGesture.Value) -> CGPoint {
         if translation.translation.width < -threshold && !self.saturationMode{
             self.saturationMode = true
@@ -69,8 +67,6 @@ struct ColorPickerView: View {
                 self.saturationMode = false
                     self.lastLocation = CGPoint(x: startLocation.x, y: startLocation.y + translation.translation.height)
                 
-            } else {
-                print("last location: \(self.lastLocation)")
             }
         }
         return translation.startLocation
@@ -82,18 +78,18 @@ struct ColorPickerView: View {
             LinearGradient(gradient: Gradient(colors: colors),
                            startPoint: .top,
                            endPoint: .bottom)
-                .frame(width: 10, height: linearGradientHeight)
-                .cornerRadius(5)
+                .frame(width: 20, height: linearGradientHeight)
+                .cornerRadius(10)
                 .shadow(radius: 8)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 5).stroke(Color.white.opacity(0.8), lineWidth: 2.0)
+                    RoundedRectangle(cornerRadius: 10).stroke(Color.white.opacity(0.8), lineWidth: 2.0)
                 )
                 .gesture(
                     DragGesture()
                         .onChanged({ (value) in
                             self.dragOffset = value.translation
                             self.startLocation = self.getNewLocation(translation: value)
-                            self.chosenColor = UIColor.init(hue: self.normalizeGesture().y / self.linearGradientHeight, saturation: self.saturationMode ? 1.0 - self.normalizeGesture(saturation: true).y / self.linearGradientHeight : 1.0, brightness: 1.0 - abs(self.normalizeGesture().x) / 320, alpha: 1.0)
+                            self.chosenColor = UIColor.init(hue: self.normalizeGesture().y / self.linearGradientHeight, saturation: self.saturationMode ? max(0, 1.0 - (self.normalizeGesture(saturation: true).y - self.lastLocation.y) / self.linearGradientHeight) : 1.0, brightness: 1.0 - abs(self.normalizeGesture().x) / self.linearGradientHeight, alpha: 1.0)
                             self.isDragging = true // 4
                         })
                         // 5
