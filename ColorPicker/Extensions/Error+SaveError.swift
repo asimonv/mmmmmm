@@ -11,6 +11,7 @@ import Foundation
 enum AlbumError: Error {
     case albumError
     case imageError
+    case permissionError
 }
 
 extension AlbumError: LocalizedError {
@@ -20,6 +21,9 @@ extension AlbumError: LocalizedError {
             return NSLocalizedString("Couldn't create album", comment: "Invalid permissions")
         case .imageError:
             return NSLocalizedString("Couldn't save image", comment: "Invalid permissions")
+        case .permissionError:
+            return NSLocalizedString("This app is not authorized to save background image", comment: "Invalid permissions")
+            
         }
     }
 }

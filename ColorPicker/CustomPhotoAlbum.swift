@@ -43,7 +43,7 @@ class CustomPhotoAlbum: NSObject {
           }
         }
         else {
-            completion(false, AlbumError.albumError)
+            completion(false, AlbumError.permissionError)
         }
     }
 
@@ -78,7 +78,7 @@ class CustomPhotoAlbum: NSObject {
     return nil
   }
     
-  func save(_ image: UIImage, completion: @escaping ((Bool, AlbumError?) -> ())) {
+  func save(_ image: UIImage, completion: @escaping ((Bool, Error?) -> ())) {
     self.checkAuthorizationWithHandler { (success, error) in
       if success, self.assetCollection != nil {
         PHPhotoLibrary.shared().performChanges({
@@ -89,7 +89,7 @@ class CustomPhotoAlbum: NSObject {
             albumChangeRequest.addAssets(enumeration)
           }
         }, completionHandler: { (success, error) in
-            completion(success, AlbumError.albumError)
+            completion(success, error)
         })
       } else{
             completion(success, error)

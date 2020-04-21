@@ -64,7 +64,7 @@ struct ContentView: View {
             if error != nil {
                 // handle error
                 self.showAlert = true
-                self.alertMessage = error!.errorDescription!
+                self.alertMessage = error!.localizedDescription
                 return
             }
             // save successful, do something (such as inform user)
@@ -105,7 +105,9 @@ struct ContentView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Error"), message: Text(alertMessage), primaryButton: .cancel(Text("Cancel")), secondaryButton: Alert.Button.default(Text("Settings")) {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            })
 
         }
     }
