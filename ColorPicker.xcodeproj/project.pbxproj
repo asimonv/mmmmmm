@@ -27,7 +27,6 @@
 		65B677B424445C8F00F29420 /* UIColor+Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B324445C8F00F29420 /* UIColor+Light.swift */; };
 		65B677B6244465F700F29420 /* UIImage+FromColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B5244465F700F29420 /* UIImage+FromColor.swift */; };
 		65C476C8244D5E7C008C5102 /* View+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476C7244D5E7C008C5102 /* View+Image.swift */; };
-		65C476CA244D606B008C5102 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476C9244D606B008C5102 /* MenuView.swift */; };
 		65C476CC244D608B008C5102 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CB244D608B008C5102 /* ActionsView.swift */; };
 		65C476CE244D6091008C5102 /* ColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CD244D6091008C5102 /* ColorsView.swift */; };
 		65C476D0244D64A8008C5102 /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CF244D64A8008C5102 /* SavedView.swift */; };
@@ -35,6 +34,9 @@
 		65C476D4244D7296008C5102 /* AngularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476D3244D7296008C5102 /* AngularGradientView.swift */; };
 		65C476D6244D7367008C5102 /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476D5244D7367008C5102 /* RadialGradientView.swift */; };
 		65CD2CB4244C0DEA00250098 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CD2CB3244C0DEA00250098 /* GradientView.swift */; };
+		65D49B6F245FADC400AE0F95 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49B6E245FADC400AE0F95 /* ImagePicker.swift */; };
+		65D49B71245FB04F00AE0F95 /* UIImage+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49B70245FB04F00AE0F95 /* UIImage+Colors.swift */; };
+		65D49B75245FD50000AE0F95 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49B74245FD50000AE0F95 /* Color+Hex.swift */; };
 		65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6A26224466F530065560C /* UIImage+Gradient.swift */; };
 /* End PBXBuildFile section */
 
@@ -82,7 +84,6 @@
 		65B677B324445C8F00F29420 /* UIColor+Light.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Light.swift"; sourceTree = "<group>"; };
 		65B677B5244465F700F29420 /* UIImage+FromColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+FromColor.swift"; sourceTree = "<group>"; };
 		65C476C7244D5E7C008C5102 /* View+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Image.swift"; sourceTree = "<group>"; };
-		65C476C9244D606B008C5102 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		65C476CB244D608B008C5102 /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		65C476CD244D6091008C5102 /* ColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsView.swift; sourceTree = "<group>"; };
 		65C476CF244D64A8008C5102 /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
@@ -90,6 +91,9 @@
 		65C476D3244D7296008C5102 /* AngularGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngularGradientView.swift; sourceTree = "<group>"; };
 		65C476D5244D7367008C5102 /* RadialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
 		65CD2CB3244C0DEA00250098 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		65D49B6E245FADC400AE0F95 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		65D49B70245FB04F00AE0F95 /* UIImage+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Colors.swift"; sourceTree = "<group>"; };
+		65D49B74245FD50000AE0F95 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		65F6A26224466F530065560C /* UIImage+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gradient.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,8 +133,8 @@
 				65C476D1244D7082008C5102 /* LinearGradientView.swift */,
 				65C476D3244D7296008C5102 /* AngularGradientView.swift */,
 				65CD2CB3244C0DEA00250098 /* GradientView.swift */,
-				65C476C9244D606B008C5102 /* MenuView.swift */,
 				65C476CF244D64A8008C5102 /* SavedView.swift */,
+				65D49B6E245FADC400AE0F95 /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -147,6 +151,8 @@
 				65F6A26224466F530065560C /* UIImage+Gradient.swift */,
 				65C476C7244D5E7C008C5102 /* View+Image.swift */,
 				65B677AF24441D6100F29420 /* View+Layout.swift */,
+				65D49B70245FB04F00AE0F95 /* UIImage+Colors.swift */,
+				65D49B74245FD50000AE0F95 /* Color+Hex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -370,17 +376,19 @@
 			files = (
 				656E7B5F244E9195008A8E6B /* HostingController.swift in Sources */,
 				65B677AE24440A7500F29420 /* ColorPickerView.swift in Sources */,
+				65D49B6F245FADC400AE0F95 /* ImagePicker.swift in Sources */,
 				65B677B6244465F700F29420 /* UIImage+FromColor.swift in Sources */,
 				65CD2CB4244C0DEA00250098 /* GradientView.swift in Sources */,
 				65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */,
 				65B6777E244407F700F29420 /* AppDelegate.swift in Sources */,
+				65D49B71245FB04F00AE0F95 /* UIImage+Colors.swift in Sources */,
 				65C476D6244D7367008C5102 /* RadialGradientView.swift in Sources */,
+				65D49B75245FD50000AE0F95 /* Color+Hex.swift in Sources */,
 				656E7B61244E94F1008A8E6B /* Bundle+DisplayName.swift in Sources */,
 				65B677B024441D6100F29420 /* View+Layout.swift in Sources */,
 				658E8D2224459AD900291A5E /* ColorView.swift in Sources */,
 				65B246F3244E5BB60033EE81 /* Error+SaveError.swift in Sources */,
 				65B246F1244E38560033EE81 /* UIColor+Blend.swift in Sources */,
-				65C476CA244D606B008C5102 /* MenuView.swift in Sources */,
 				65C476CE244D6091008C5102 /* ColorsView.swift in Sources */,
 				65B67780244407F700F29420 /* SceneDelegate.swift in Sources */,
 				65C476D0244D64A8008C5102 /* SavedView.swift in Sources */,
