@@ -18,9 +18,9 @@ struct SavedView: View {
         HStack {
             Text(notificationText).bold().foregroundColor(Color.white).font(.system(size: 20))
         }
-        .padding(20)
+        .padding([.horizontal], 40)
         .transition(.move(edge: .leading))
-        .animation(.ripple(blendDuration: 0.0))
+        .animation(.ripple())
         .onAppear(perform: callback)
     }
 }

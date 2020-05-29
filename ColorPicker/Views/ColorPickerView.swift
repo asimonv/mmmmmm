@@ -19,7 +19,7 @@ struct ColorPickerView: View {
     @Binding var chosenColor: UIColor
     @Binding var isDragging: Bool
 
-    @State private var startLocation: CGPoint = CGPoint(x: 0, y: 100)
+    @State private var startLocation: CGPoint = CGPoint(x: 0, y: 0)
     @State private var lastLocation: CGPoint = .zero
     @State private var dragOffset: CGSize = .zero
     @State var saturationMode: Bool = false

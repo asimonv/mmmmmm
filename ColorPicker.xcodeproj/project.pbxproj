@@ -26,8 +26,11 @@
 		65B677B2244437D400F29420 /* Animation+Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B1244437D400F29420 /* Animation+Ripple.swift */; };
 		65B677B424445C8F00F29420 /* UIColor+Light.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B324445C8F00F29420 /* UIColor+Light.swift */; };
 		65B677B6244465F700F29420 /* UIImage+FromColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B677B5244465F700F29420 /* UIImage+FromColor.swift */; };
+		65C16A0224807F3700459BDB /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C16A0124807F3700459BDB /* FloatingButton.swift */; };
+		65C16A042480C6B500459BDB /* String+RE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C16A032480C6B500459BDB /* String+RE.swift */; };
+		65C16A062480C97100459BDB /* Color+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C16A052480C97100459BDB /* Color+UIColor.swift */; };
+		65C16A0A2480CB2C00459BDB /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C16A092480CB2C00459BDB /* MenuItem.swift */; };
 		65C476C8244D5E7C008C5102 /* View+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476C7244D5E7C008C5102 /* View+Image.swift */; };
-		65C476CC244D608B008C5102 /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CB244D608B008C5102 /* ActionsView.swift */; };
 		65C476CE244D6091008C5102 /* ColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CD244D6091008C5102 /* ColorsView.swift */; };
 		65C476D0244D64A8008C5102 /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476CF244D64A8008C5102 /* SavedView.swift */; };
 		65C476D2244D7082008C5102 /* LinearGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C476D1244D7082008C5102 /* LinearGradientView.swift */; };
@@ -83,8 +86,11 @@
 		65B677B1244437D400F29420 /* Animation+Ripple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Animation+Ripple.swift"; sourceTree = "<group>"; };
 		65B677B324445C8F00F29420 /* UIColor+Light.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Light.swift"; sourceTree = "<group>"; };
 		65B677B5244465F700F29420 /* UIImage+FromColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+FromColor.swift"; sourceTree = "<group>"; };
+		65C16A0124807F3700459BDB /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
+		65C16A032480C6B500459BDB /* String+RE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+RE.swift"; sourceTree = "<group>"; };
+		65C16A052480C97100459BDB /* Color+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+UIColor.swift"; sourceTree = "<group>"; };
+		65C16A092480CB2C00459BDB /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		65C476C7244D5E7C008C5102 /* View+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Image.swift"; sourceTree = "<group>"; };
-		65C476CB244D608B008C5102 /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
 		65C476CD244D6091008C5102 /* ColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsView.swift; sourceTree = "<group>"; };
 		65C476CF244D64A8008C5102 /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
 		65C476D1244D7082008C5102 /* LinearGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientView.swift; sourceTree = "<group>"; };
@@ -126,7 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				65B677AD24440A7500F29420 /* ColorPickerView.swift */,
-				65C476CB244D608B008C5102 /* ActionsView.swift */,
 				65C476CD244D6091008C5102 /* ColorsView.swift */,
 				658E8D2124459AD900291A5E /* ColorView.swift */,
 				65C476D5244D7367008C5102 /* RadialGradientView.swift */,
@@ -135,6 +140,8 @@
 				65CD2CB3244C0DEA00250098 /* GradientView.swift */,
 				65C476CF244D64A8008C5102 /* SavedView.swift */,
 				65D49B6E245FADC400AE0F95 /* ImagePicker.swift */,
+				65C16A0124807F3700459BDB /* FloatingButton.swift */,
+				65C16A092480CB2C00459BDB /* MenuItem.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -142,6 +149,7 @@
 		65B246F5244E60F00033EE81 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				65C16A032480C6B500459BDB /* String+RE.swift */,
 				65B677B1244437D400F29420 /* Animation+Ripple.swift */,
 				65B246F0244E38560033EE81 /* UIColor+Blend.swift */,
 				65B246F2244E5BB60033EE81 /* Error+SaveError.swift */,
@@ -153,6 +161,7 @@
 				65B677AF24441D6100F29420 /* View+Layout.swift */,
 				65D49B70245FB04F00AE0F95 /* UIImage+Colors.swift */,
 				65D49B74245FD50000AE0F95 /* Color+Hex.swift */,
+				65C16A052480C97100459BDB /* Color+UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -383,8 +392,10 @@
 				65B6777E244407F700F29420 /* AppDelegate.swift in Sources */,
 				65D49B71245FB04F00AE0F95 /* UIImage+Colors.swift in Sources */,
 				65C476D6244D7367008C5102 /* RadialGradientView.swift in Sources */,
+				65C16A0A2480CB2C00459BDB /* MenuItem.swift in Sources */,
 				65D49B75245FD50000AE0F95 /* Color+Hex.swift in Sources */,
 				656E7B61244E94F1008A8E6B /* Bundle+DisplayName.swift in Sources */,
+				65C16A042480C6B500459BDB /* String+RE.swift in Sources */,
 				65B677B024441D6100F29420 /* View+Layout.swift in Sources */,
 				658E8D2224459AD900291A5E /* ColorView.swift in Sources */,
 				65B246F3244E5BB60033EE81 /* Error+SaveError.swift in Sources */,
@@ -394,8 +405,9 @@
 				65C476D0244D64A8008C5102 /* SavedView.swift in Sources */,
 				65C476D2244D7082008C5102 /* LinearGradientView.swift in Sources */,
 				65B677B2244437D400F29420 /* Animation+Ripple.swift in Sources */,
+				65C16A0224807F3700459BDB /* FloatingButton.swift in Sources */,
 				65C476D4244D7296008C5102 /* AngularGradientView.swift in Sources */,
-				65C476CC244D608B008C5102 /* ActionsView.swift in Sources */,
+				65C16A062480C97100459BDB /* Color+UIColor.swift in Sources */,
 				65C476C8244D5E7C008C5102 /* View+Image.swift in Sources */,
 				658E8D2024458F9B00291A5E /* CustomPhotoAlbum.swift in Sources */,
 				65B67782244407F700F29420 /* ContentView.swift in Sources */,

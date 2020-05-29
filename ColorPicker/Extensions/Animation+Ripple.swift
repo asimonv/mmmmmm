@@ -9,7 +9,7 @@
 import SwiftUI
 
 extension Animation {
-    static func ripple(blendDuration: Double = 0.0) -> Animation {
-        Animation.spring(dampingFraction: 0.5, blendDuration: blendDuration)
+    static func ripple(delay: Double = 0.0) -> Animation {
+        Animation.spring(dampingFraction: 0.5).delay(delay)
     }
 }
