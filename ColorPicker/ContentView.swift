@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State var currentColor: UIColor = .red
     @State var isDragging: Bool = false
-    @State var backgroundSaved: Bool = false
+    @State var showNotification: Bool = false
     
     @State var gradientType = 0
     
@@ -23,10 +23,12 @@ struct ContentView: View {
     @State var radialScale: CGFloat = 1.0
     @State var showImagePicker: Bool = false
 
-    @State var notificationText: String = "Background saved"
+    @State var notificationText = NotificationType.backgroundSaved
     @State var open = false
 
     @State var pickedColors: [UIColor] = []
+    
+    @State var errorType: Int = -1
     
     func shuffleAction() -> Void {
         self.gradientType = (self.gradientType + 1) % 4
@@ -34,6 +36,8 @@ struct ContentView: View {
     
     func addColor() -> Void {
         pickedColors.insert(currentColor, at: 0)
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
     }
     
     func clearAction() -> Void {
@@ -70,10 +74,12 @@ struct ContentView: View {
             if error != nil {
                 // handle error
                 self.showAlert = true
+                self.errorType = 0
                 self.alertMessage = error!.localizedDescription
                 // save successful, do something (such as inform user)
             } else {
-                self.backgroundSaved = !self.backgroundSaved
+                self.notificationText = .backgroundSaved
+                self.showNotification = !self.showNotification
             }
         })
     }
@@ -84,7 +90,7 @@ struct ContentView: View {
             AnyView(MenuItem(icon: "trash", action: clearAction, color: .pink)),
             AnyView(MenuItem(icon: "photo", action: pickImageAction,  color: .blue)),
             AnyView(MenuItem(icon: "arrow.down.to.line", action: saveBackground, color: Color(hex: "#00b894"))),
-            AnyView(MenuItem(icon: "plus", action: addColor, color: .blue)),
+            AnyView(MenuItem(icon: "paintbrush.fill", action: addColor, color: .blue)),
             AnyView(MenuItem(icon: "shuffle", action: shuffleAction, color: .blue))
         ]
         
@@ -103,11 +109,22 @@ struct ContentView: View {
             GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition, radialScale: $radialScale)
             .onLongPressGesture(minimumDuration: 1) {
                 let pasteboard = UIPasteboard.general
-                if let string = pasteboard.string {
-                    let regexResult = matches(for: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", in: string)
+                if pasteboard.hasImages {
+                    let extractedColors = pasteboard.image!.getColors()
+                    self.pickedColors.append(contentsOf: [(extractedColors?.detail)!, (extractedColors?.background)!, (extractedColors?.primary)!, (extractedColors?.secondary)!])
+                    
+                    self.notificationText = .imagePasted
+                    self.showNotification = !self.showNotification
+                }
+                else if let string = pasteboard.string {
+                    let regexResult = matches(for: "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$", in: string.trimmingCharacters(in: .whitespaces))
                     if regexResult.count > 0 {
-                        print("OK")
                         self.pickedColors.append(Color(hex: regexResult[0]).uiColor())
+                        self.notificationText = .colorPasted
+                        self.showNotification = !self.showNotification
+                    } else {
+                        self.showAlert = !self.showAlert
+                        self.errorType = 1
                     }
                 }
             }
@@ -137,11 +154,11 @@ struct ContentView: View {
                     }
                     Spacer()
                     menu3.frame(width: 200, height: 80, alignment: .bottom)
-                    if self.backgroundSaved {
+                    if self.showNotification {
                          SavedView(currentColor: self.$currentColor, notificationText: self.$notificationText, callback: {
                              DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                   withAnimation {
-                                      self.backgroundSaved = false
+                                      self.showNotification = false
                                   }
                               }
                           }).padding(.all)
@@ -154,9 +171,12 @@ struct ContentView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("Oops!"), message: Text(alertMessage), primaryButton: .cancel(Text("Cancel")), secondaryButton: Alert.Button.default(Text("Settings")) {
-                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-            })
+            if (errorType == 0) {
+                return Alert(title: Text("Oops!"), message: Text(alertMessage), primaryButton: .cancel(Text("Cancel")), secondaryButton: Alert.Button.default(Text("Settings")) {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                })
+            }
+            return Alert(title: Text("Error"), message: Text("Could not add color. Please paste something like this: #FFFF00"), dismissButton: .default(Text("OK")))
 
         }
         .sheet(isPresented: $showImagePicker) {
@@ -192,25 +212,8 @@ struct MainButton: View {
     }
 }
 
-struct IconButton: View {
-
-    var imageName: String
-    var color: Color
-
-    let imageWidth: CGFloat = 35
-
-    var body: some View {
-        Button(action: {
-                print(self.imageName)
-        }) {
-            Image(systemName: imageName)
-                .frame(width: self.imageWidth, height: self.imageWidth)
-                .foregroundColor(.white)
-                .font(.system(size: 16, weight: .bold))
-        }
-        .background(color)
-        .clipShape(Circle())
-        .overlay(
-            Circle().stroke(Color.white, lineWidth: 3))
+    enum NotificationType: String {
+        case backgroundSaved = "Background saved"
+        case colorPasted = "Your color 🎨 was pasted"
+        case imagePasted = "Your image 🖼 was pasted"
     }
-}

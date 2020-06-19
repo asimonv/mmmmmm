@@ -10,13 +10,13 @@ import SwiftUI
 
 struct SavedView: View {
     @Binding var currentColor: UIColor
-    @Binding var notificationText: String
+    @Binding var notificationText: NotificationType
     
     var callback: () -> Void
     
     var body: some View {
         HStack {
-            Text(notificationText).bold().foregroundColor(Color.white).font(.system(size: 20))
+            Text(notificationText.rawValue).bold().foregroundColor(Color.white).font(.system(size: 20))
         }
         .padding([.horizontal], 40)
         .transition(.move(edge: .leading))
@@ -27,6 +27,6 @@ struct SavedView: View {
 
 struct SavedView_Previews: PreviewProvider {
     static var previews: some View {
-        SavedView(currentColor: Binding.constant(UIColor.black), notificationText: Binding.constant("Text"), callback: {})
+        SavedView(currentColor: Binding.constant(UIColor.black), notificationText: Binding.constant(NotificationType(rawValue: "Text")!), callback: {})
     }
 }
