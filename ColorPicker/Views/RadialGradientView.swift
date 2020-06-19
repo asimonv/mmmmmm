@@ -12,21 +12,25 @@ struct RadialGradientView: View {
     @Binding var pickedColors: [UIColor]
     @Binding var scale: CGFloat
     @State var currPosition: Int = 0
-    
-    let radiusPositions: [UnitPoint] = [.center, .leading, .bottomLeading, .bottom, .bottomTrailing, .trailing, .topTrailing, .top, .topLeading]
+    @State var centerPosition: UnitPoint = .center
+
+    private let radiusPositions: [UnitPoint] = [.center, .leading, .bottomLeading, .bottom, .bottomTrailing, .trailing, .topTrailing, .top, .topLeading]
+    private let maxX = UIScreen.main.bounds.maxX
+    private let maxY = UIScreen.main.bounds.maxY
     
     var body: some View {
-        Rectangle()
-            .fill(
-                RadialGradient(gradient: Gradient(colors: pickedColors.map({ color in
-                    Color(color)
-                })), center: radiusPositions[currPosition], startRadius: 1, endRadius: 150*self.scale)
-        )
-        .gesture(MagnificationGesture().onChanged {
-            self.scale = max($0.magnitude, 1.0)
-        })
-        .onTapGesture {
-            self.currPosition = (self.currPosition + 1) % self.radiusPositions.count
+        GeometryReader { geometry in
+            Rectangle()
+                .fill(
+                    RadialGradient(gradient: Gradient(colors: self.pickedColors.map({ color in
+                        Color(color)
+                    })), center: self.centerPosition, startRadius: 1, endRadius: 150*self.scale)
+            )
+            .gesture(MagnificationGesture().onChanged {
+                self.scale = max($0.magnitude, 1.0)
+            }).simultaneousGesture(DragGesture().onChanged({ value in
+                self.centerPosition = UnitPoint(x: value.location.x / self.maxX , y: value.location.y / self.maxY)
+            }))
         }
     }
 }
