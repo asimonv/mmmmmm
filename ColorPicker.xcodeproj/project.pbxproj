@@ -40,6 +40,8 @@
 		65D49B6F245FADC400AE0F95 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49B6E245FADC400AE0F95 /* ImagePicker.swift */; };
 		65D49B71245FB04F00AE0F95 /* UIImage+Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49B70245FB04F00AE0F95 /* UIImage+Colors.swift */; };
 		65D49B75245FD50000AE0F95 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D49B74245FD50000AE0F95 /* Color+Hex.swift */; };
+		65DC89C1249C6F09003B05BC /* UIImage+Downsample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC89C0249C6F09003B05BC /* UIImage+Downsample.swift */; };
+		65DC89C3249C72C5003B05BC /* ImageBlurredView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DC89C2249C72C5003B05BC /* ImageBlurredView.swift */; };
 		65F6A26324466F530065560C /* UIImage+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F6A26224466F530065560C /* UIImage+Gradient.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6561588127EBF79300879CEE /* ColorPicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorPicker.entitlements; sourceTree = "<group>"; };
 		656E7B5E244E9195008A8E6B /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		656E7B60244E94F1008A8E6B /* Bundle+DisplayName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+DisplayName.swift"; sourceTree = "<group>"; };
 		658E8D1F24458F9B00291A5E /* CustomPhotoAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoAlbum.swift; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 		65D49B6E245FADC400AE0F95 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		65D49B70245FB04F00AE0F95 /* UIImage+Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Colors.swift"; sourceTree = "<group>"; };
 		65D49B74245FD50000AE0F95 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		65DC89C0249C6F09003B05BC /* UIImage+Downsample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Downsample.swift"; sourceTree = "<group>"; };
+		65DC89C2249C72C5003B05BC /* ImageBlurredView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBlurredView.swift; sourceTree = "<group>"; };
 		65F6A26224466F530065560C /* UIImage+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Gradient.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +147,7 @@
 				65D49B6E245FADC400AE0F95 /* ImagePicker.swift */,
 				65C16A0124807F3700459BDB /* FloatingButton.swift */,
 				65C16A092480CB2C00459BDB /* MenuItem.swift */,
+				65DC89C2249C72C5003B05BC /* ImageBlurredView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -162,6 +168,7 @@
 				65D49B70245FB04F00AE0F95 /* UIImage+Colors.swift */,
 				65D49B74245FD50000AE0F95 /* Color+Hex.swift */,
 				65C16A052480C97100459BDB /* Color+UIColor.swift */,
+				65DC89C0249C6F09003B05BC /* UIImage+Downsample.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -189,6 +196,7 @@
 		65B6777C244407F700F29420 /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
+				6561588127EBF79300879CEE /* ColorPicker.entitlements */,
 				65B246F5244E60F00033EE81 /* Extensions */,
 				65B246F4244E60C90033EE81 /* Views */,
 				65B6777D244407F700F29420 /* AppDelegate.swift */,
@@ -402,7 +410,9 @@
 				65B246F1244E38560033EE81 /* UIColor+Blend.swift in Sources */,
 				65C476CE244D6091008C5102 /* ColorsView.swift in Sources */,
 				65B67780244407F700F29420 /* SceneDelegate.swift in Sources */,
+				65DC89C1249C6F09003B05BC /* UIImage+Downsample.swift in Sources */,
 				65C476D0244D64A8008C5102 /* SavedView.swift in Sources */,
+				65DC89C3249C72C5003B05BC /* ImageBlurredView.swift in Sources */,
 				65C476D2244D7082008C5102 /* LinearGradientView.swift in Sources */,
 				65B677B2244437D400F29420 /* Animation+Ripple.swift in Sources */,
 				65C16A0224807F3700459BDB /* FloatingButton.swift in Sources */,
@@ -576,6 +586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ColorPicker/ColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ColorPicker/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRWC7JFC38;
@@ -586,11 +597,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andre.mmmmmm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -598,6 +610,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ColorPicker/ColorPicker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ColorPicker/Preview Content\"";
 				DEVELOPMENT_TEAM = ZRWC7JFC38;
@@ -608,11 +621,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.andre.mmmmmm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

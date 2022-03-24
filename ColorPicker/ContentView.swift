@@ -16,6 +16,7 @@ struct ContentView: View {
     @State var gradientType = 0
     
     @State var showAlert: Bool = false
+    @State var showingSheet: Bool = false
     @State var alertMessage: String = ""
     
     @State var centerPosition: UnitPoint = .center
@@ -27,6 +28,9 @@ struct ContentView: View {
     @State var open = false
 
     @State var pickedColors: [UIColor] = []
+    @State var selectedImage: UIImage? = nil
+    
+    @State var imageOption: Int = 0
     
     @State var errorType: Int = -1
     
@@ -46,7 +50,8 @@ struct ContentView: View {
     }
     
     func pickImageAction() -> Void {
-        self.showImagePicker.toggle()
+        //self.showImagePicker.toggle()
+        self.showingSheet.toggle()
     }
     
     /*
@@ -106,7 +111,7 @@ struct ContentView: View {
         .animation(Animation.spring(response: 0.2, dampingFraction: 0.5, blendDuration: 0).delay(0.0))
         
         return ZStack {
-            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition, radialScale: $radialScale)
+            GradientView(gradientType: $gradientType, pickedColors: $pickedColors, rotationValue: $rotationValue, centerPosition: $centerPosition, radialScale: $radialScale, selectedImage: $selectedImage)
             .onLongPressGesture(minimumDuration: 1) {
                 let pasteboard = UIPasteboard.general
                 if pasteboard.hasImages {
@@ -181,9 +186,29 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(sourceType: .photoLibrary) { image in
-                let extractedColors = image.getColors()
-                self.pickedColors.append(contentsOf: [(extractedColors?.detail)!, (extractedColors?.background)!, (extractedColors?.primary)!, (extractedColors?.secondary)!])
+                if let selectedImage = image as? UIImage {
+                    if self.imageOption == 1 {
+                        let extractedColors = selectedImage.getColors()
+                        self.pickedColors.append(contentsOf: [(extractedColors?.detail)!, (extractedColors?.background)!, (extractedColors?.primary)!, (extractedColors?.secondary)!])
+                    } else {
+                        self.selectedImage = selectedImage
+                        self.gradientType = 4
+                    }
+                }
             }
+        }
+        .actionSheet(isPresented: $showingSheet) {
+            ActionSheet(title: Text("What do you want to do?"), buttons: [
+//                .default(Text("Generate background")) {
+//                    self.showImagePicker.toggle()
+//                    self.imageOption = 0
+//                },
+                .default(Text("Generate colors")) {
+                    self.showImagePicker.toggle()
+                    self.imageOption = 1
+                },
+                .default(Text("Dismiss"))
+            ])
         }
     }
 }
